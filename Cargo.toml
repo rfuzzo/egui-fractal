@@ -1,0 +1,13 @@
+[package]
+name = "egui-fractal"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+egui = { version = "0.18.0" }
+egui_extras = "0.18.0"
+eframe = { version = "0.18.0" }
+chrono = { version = "0.4", features = ["js-sys", "wasmbind"] }
+poll-promise = "0.1.0"
