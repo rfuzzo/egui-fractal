@@ -54,15 +54,6 @@ impl WrapApp {
 }
 
 impl eframe::App for WrapApp {
-    #[cfg(feature = "persistence")]
-    fn save(&mut self, storage: &mut dyn eframe::Storage) {
-        eframe::set_value(storage, eframe::APP_KEY, &self.state);
-    }
-
-    fn clear_color(&self, visuals: &egui::Visuals) -> egui::Rgba {
-        visuals.window_fill().into()
-    }
-
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
         // if let Some(window_info) = frame.info().window_info {
         //     if let Some(anchor) = window_info.location.hash.strip_prefix('#') {
@@ -76,7 +67,9 @@ impl eframe::App for WrapApp {
         }
 
         egui::TopBottomPanel::top("wrap_app_top_bar").show(ctx, |ui| {
+
             egui::trace!(ui);
+
             ui.horizontal_wrapped(|ui| {
                 ui.visuals_mut().button_frame = false;
                 self.bar_contents(ui, frame);
@@ -86,9 +79,18 @@ impl eframe::App for WrapApp {
         self.show_selected_app(ctx, frame);
     }
 
+    #[cfg(feature = "persistence")]
+    fn save(&mut self, storage: &mut dyn eframe::Storage) {
+        eframe::set_value(storage, eframe::APP_KEY, &self.state);
+    }
+
     #[cfg(feature = "glow")]
     fn on_exit(&mut self, gl: Option<&glow::Context>) {
         self.custom3d.on_exit(gl);
+    }
+
+    fn clear_color(&self, visuals: &egui::Visuals) -> egui::Rgba {
+        visuals.window_fill().into()
     }
 }
 
@@ -109,6 +111,7 @@ impl WrapApp {
     }
 
     fn bar_contents(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
+
         egui::widgets::global_dark_light_mode_switch(ui);
 
         let mut selected_anchor = self.state.selected_anchor.clone();
