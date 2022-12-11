@@ -64,11 +64,11 @@ impl eframe::App for WrapApp {
     }
 
     fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
-        if let Some(web_info) = frame.info().web_info.as_ref() {
-            if let Some(anchor) = web_info.location.hash.strip_prefix('#') {
-                self.state.selected_anchor = anchor.to_owned();
-            }
-        }
+        // if let Some(window_info) = frame.info().window_info {
+        //     if let Some(anchor) = window_info.location.hash.strip_prefix('#') {
+        //         self.state.selected_anchor = anchor.to_owned();
+        //     }
+        // }
 
         if self.state.selected_anchor.is_empty() {
             let selected_anchor = self.apps_iter_mut().next().unwrap().0.to_owned();
